@@ -5,153 +5,290 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday!</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@700&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Comic Neue',cursive;background:#A8E6FF;overflow-x:hidden}
-.hand-drawn-box{border:4px solid #000;border-radius:255px 15px 225px 15px/15px 225px 15px 255px;box-shadow:4px 4px 0 #000;background:#fff}
-@keyframes wiggle{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
-@keyframes flicker{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-@keyframes flame-wiggle{0%,100%{transform:translateX(-50%)rotate(-2deg)}50%{transform:translateX(-50%)rotate(2deg)}}
-@keyframes smoke-rise{0%{transform:translateY(0)scale(1);opacity:.6}100%{transform:translateY(-100px)scale(2);opacity:0}}
-@keyframes confetti-fall{to{transform:translateY(100vh)rotate(720deg);opacity:0}}
-@keyframes popIn{0%{transform:scale(0)rotate(-10deg);opacity:0}100%{transform:scale(1)rotate(0deg);opacity:1}}
-@keyframes reveal{to{opacity:1;transform:scale(1.1)}}
-@keyframes float-up{0%{transform:translateY(100vh)rotate(0deg);opacity:1}100%{transform:translateY(-100vh)rotate(360deg);opacity:0}}
-#page1{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px}
-.cloud{background:#fff;border:4px solid #000;border-radius:50px;padding:30px 50px;margin-bottom:30px;position:relative;animation:float 3s ease-in-out infinite;box-shadow:6px 6px 0 #000}
-.cloud::after{content:'';position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:40px;height:20px;background:#fff;border-bottom:4px solid #000;border-right:4px solid #000;border-left:4px solid #000;border-radius:0 0 20px 20px}
-.cloud h1{font-family:'Fredoka One',cursive;font-size:2.5em;color:#000;text-align:center}
-.arrow{font-size:4em;animation:bounce 1s infinite;margin:20px 0;filter:drop-shadow(3px 3px 0 #000)}
-.bears{display:flex;gap:20px;margin:20px 0}
-.bear{width:100px;height:120px;background:#D4A373;border:4px solid #000;border-radius:40px 40px 30px 30px;position:relative;animation:wiggle 2s ease-in-out infinite}
-.bear:nth-child(2){background:#E9C496;animation-delay:.5s}
-.bear::before,.bear::after{content:'';position:absolute;width:30px;height:30px;background:inherit;border:4px solid #000;border-radius:50%;top:-15px}
-.bear::before{left:10px}.bear::after{right:10px}
-.bear-face{position:absolute;top:30px;left:50%;transform:translateX(-50%);text-align:center}
-.eyes{display:flex;gap:15px;justify-content:center;margin-bottom:10px}
-.eye{width:8px;height:8px;background:#000;border-radius:50%}
-.smile{width:30px;height:15px;border-bottom:4px solid #000;border-radius:0 0 30px 30px;margin:0 auto}
-.blush{position:absolute;width:15px;height:10px;background:#FFB6C1;border-radius:50%;top:45px;right:-5px}
-.input-container{background:#FFE66D;padding:30px;margin-top:20px;max-width:400px;width:100%}
-.input-container input{width:100%;padding:15px;font-size:1.2em;border:3px solid #000;border-radius:10px;font-family:'Comic Neue',cursive;margin-bottom:15px;outline:none}
-.input-container input:focus{transform:scale(1.02);box-shadow:4px 4px 0 #000}
-.btn{background:#FF6B9D;color:#fff;border:3px solid #000;padding:15px 40px;font-size:1.3em;font-family:'Fredoka One',cursive;border-radius:50px;cursor:pointer;box-shadow:4px 4px 0 #000;transition:all .1s;width:100%}
-.btn:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
-.error-msg{color:red;font-weight:bold;margin-top:10px;display:none;font-size:1.1em;text-align:center;animation:shake .5s}
-#page2{min-height:100vh;display:none;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;background:linear-gradient(180deg,#A8E6FF 0%,#FFD3E1 100%)}
-.surprise-box{background:#fff;padding:40px;max-width:600px;text-align:center;position:relative;animation:popIn .6s cubic-bezier(.68,-.55,.265,1.55)}
-.surprise-box h2{font-family:'Fredoka One',cursive;font-size:2.5em;color:#FF6B9D;margin-bottom:20px;text-shadow:3px 3px 0 #000}
-.surprise-text{font-size:1.3em;line-height:1.8;color:#333;margin-bottom:30px}
-.scroll-hint{background:#FFE66D;padding:20px;font-size:1.2em;font-weight:bold;animation:bounce 2s infinite;cursor:pointer}
-.confetti{position:fixed;width:10px;height:10px;top:-10px;animation:confetti-fall 3s linear forwards}
-#page3{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;background:#FFD3E1;position:relative}
-.cake-container{position:relative;margin-bottom:40px;cursor:pointer;transition:transform .2s}
-.cake-container:hover{transform:scale(1.05)}
-.cake-container.blowing{animation:shake .3s ease-in-out}
-.tap-text{position:absolute;top:-60px;left:50%;transform:translateX(-50%);background:#FF6B9D;color:#fff;padding:10px 20px;border:3px solid #000;border-radius:20px;font-family:'Fredoka One',cursive;font-size:1.2em;white-space:nowrap;animation:bounce 1s infinite;box-shadow:3px 3px 0 #000;z-index:10}
-.tap-text.hidden{display:none}
-.cake{width:300px;height:200px;position:relative}
-.cake-layer{position:absolute;border:4px solid #000;left:50%;transform:translateX(-50%)}
-.layer-bottom{width:280px;height:80px;background:#D4A373;bottom:0;border-radius:10px;box-shadow:inset -20px 0 0 rgba(0,0,0,.1)}
-.layer-middle{width:220px;height:70px;background:#F4C2C2;bottom:80px;border-radius:10px}
-.layer-top{width:160px;height:60px;background:#FFE66D;bottom:150px;border-radius:10px}
-.frosting{position:absolute;width:20px;height:20px;background:#fff;border:3px solid #000;border-radius:50%;top:-10px}
-.single-candle{position:absolute;top:-50px;left:50%;transform:translateX(-50%);width:12px;height:50px;background:linear-gradient(180deg,#FF6B9D 0%,#FF8E53 100%);border:3px solid #000;border-radius:6px;z-index:5}
-.flame{position:absolute;top:-25px;left:50%;transform:translateX(-50%);width:20px;height:30px;background:radial-gradient(ellipse at center,#FFE66D 0%,#FF6B35 70%);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:flicker .5s ease-in-out infinite alternate,flame-wiggle .3s ease-in-out infinite;box-shadow:0 0 30px #FFE66D,0 0 60px #FF6B35;transition:opacity .3s}
-.flame.out{opacity:0;animation:none}
-.smoke{position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:#999;border-radius:50%;opacity:0;pointer-events:none}
-.smoke.active{animation:smoke-rise 1s ease-out forwards}
-.plate{width:320px;height:20px;background:#E0E0E0;border:4px solid #000;border-radius:50%;position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);z-index:-1}
-.wish-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Fredoka One',cursive;font-size:1.5em;color:#FF6B9D;text-align:center;opacity:0;pointer-events:none;text-shadow:2px 2px 0 #fff,-2px -2px 0 #fff,2px -2px 0 #fff,-2px 2px 0 #fff;transition:opacity .5s}
-.wish-text.show{opacity:1;animation:float 2s ease-in-out infinite}
-.joke-box{background:#fff;padding:30px;max-width:500px;text-align:center;margin-top:30px}
-.joke-box h3{font-family:'Fredoka One',cursive;color:#FF6B9D;font-size:1.5em;margin-bottom:15px}
-.joke-text{font-size:1.2em;color:#333;line-height:1.6}
-.punchline{margin-top:15px;font-weight:bold;color:#FF6B9D;font-size:1.3em;opacity:0;animation:reveal 1s 2s forwards}
-.floating-hearts{position:fixed;font-size:2em;animation:float-up 4s ease-in infinite;pointer-events:none}
-.music-btn{position:fixed;bottom:20px;right:20px;background:#fff;padding:15px;border:3px solid #000;border-radius:20px;box-shadow:4px 4px 0 #000;z-index:1000;cursor:pointer;font-family:'Fredoka One',cursive;font-size:1em}
-.music-btn:hover{transform:scale(1.05)}
-.music-btn.playing{background:#FF6B9D;color:#fff}
-@media(max-width:600px){.cloud h1{font-size:1.8em}.surprise-box h2{font-size:1.8em}.cake{transform:scale(.8)}.tap-text{font-size:1em}}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: 'Comic Sans MS', cursive, sans-serif; 
+  background: #B8E6F0; 
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+.cloud {
+  background: #fff;
+  border: 4px solid #000;
+  border-radius: 50px;
+  padding: 30px 50px;
+  display: inline-block;
+  box-shadow: 6px 6px 0 #000;
+  position: relative;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
+.arrow {
+  width: 200px;
+  height: 40px;
+  background: #FFE66D;
+  border: 4px solid #000;
+  position: relative;
+  margin: 30px auto;
+  box-shadow: 4px 4px 0 #000;
+}
+.arrow::after {
+  content: '';
+  position: absolute;
+  right: -30px;
+  top: -15px;
+  border: 25px solid transparent;
+  border-left: 40px solid #FFE66D;
+  filter: drop-shadow(4px 0 0 #000);
+}
+.bear-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin: 10px;
+  animation: wiggle 2s ease-in-out infinite;
+  filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.2));
+}
+@keyframes wiggle { 0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)} }
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+input {
+  padding: 15px 25px;
+  font-size: 20px;
+  border: 4px solid #000;
+  border-radius: 30px;
+  margin: 20px;
+  background: #fff;
+  box-shadow: 4px 4px 0 #000;
+  font-family: inherit;
+  text-align: center;
+}
+button {
+  padding: 15px 40px;
+  font-size: 20px;
+  background: #FFE66D;
+  border: 4px solid #000;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+  font-family: inherit;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+button:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
+button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+.error {
+  color: #FF4444;
+  font-weight: bold;
+  margin-top: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.hidden { display: none; }
+.surprise {
+  background: #fff;
+  border: 4px solid #000;
+  border-radius: 30px;
+  padding: 40px;
+  max-width: 600px;
+  box-shadow: 8px 8px 0 #000;
+  animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+@keyframes popIn { 0%{transform:scale(0)rotate(-10deg)}100%{transform:scale(1)rotate(0)} }
+.scroll-hint {
+  margin-top: 30px;
+  animation: bounce 1s infinite;
+  font-size: 24px;
+}
+@keyframes bounce { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
+.cake-section { background: #FFF5F5; }
+.cake {
+  width: 300px;
+  height: 200px;
+  background: #F4C2C2;
+  border: 4px solid #000;
+  border-radius: 20px 20px 10px 10px;
+  position: relative;
+  margin-top: 80px;
+  box-shadow: 6px 6px 0 #000;
+}
+.cake::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 20px;
+  right: 20px;
+  height: 40px;
+  background: #FFF;
+  border: 4px solid #000;
+  border-radius: 10px;
+}
+.frosting {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  height: 30px;
+}
+.frosting span {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: #FFF;
+  border: 3px solid #000;
+  border-radius: 50%;
+  margin: 0 -5px;
+  position: relative;
+  top: -20px;
+}
+.candle {
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 60px;
+  background: linear-gradient(to bottom, #FFE66D 50%, #FF6B6B 50%);
+  border: 3px solid #000;
+  border-radius: 5px;
+  animation: flicker 0.5s ease-in-out infinite alternate;
+}
+.candle::after {
+  content: '';
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 25px;
+  background: radial-gradient(ellipse at center, #FFE66D 0%, #FF9500 70%, transparent 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: flame 0.5s ease-in-out infinite alternate;
+  box-shadow: 0 0 20px #FF9500, 0 0 40px #FFE66D;
+}
+@keyframes flicker { 0%{transform:translateX(-50%)scaleY(1)}100%{transform:translateX(-50%)scaleY(1.05)} }
+@keyframes flame { 0%{transform:translateX(-50%)scale(1)}100%{transform:translateX(-50%)scale(1.2)} }
+.joke-box {
+  background: #E8F5E9;
+  border: 4px solid #000;
+  border-radius: 20px;
+  padding: 30px;
+  margin-top: 40px;
+  max-width: 500px;
+  box-shadow: 6px 6px 0 #000;
+  font-size: 18px;
+  line-height: 1.6;
+}
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 4px 4px 0 #000;
+  display: none;
+}
+.music-btn {
+  background: #1DB954;
+  color: #fff;
+  border: 3px solid #000;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+  transition: all 0.2s;
+}
+.music-btn:hover { transform: scale(1.1); }
+.music-btn:active { transform: scale(0.95); }
 </style>
 </head>
 <body>
-<button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Play Music</button>
-<section id="page1">
-<div class="cloud"><h1>Your Birthday<br>Nickname!</h1></div>
-<div class="arrow">➡️</div>
-<div class="bears">
-<div class="bear"><div class="bear-face"><div class="eyes"><div class="eye"></div><div class="eye"></div></div><div class="smile"></div></div></div>
-<div class="bear"><div class="bear-face"><div class="eyes"><div class="eye"></div><div class="eye"></div></div><div class="smile"></div><div class="blush"></div></div></div>
+
+<div class="section" id="page1">
+  <div class="cloud">
+    <h1 style="font-size: 42px; color: #000;">Your new<br>nickname!</h1>
+  </div>
+  <div class="arrow"></div>
+  <div>
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="bear-img" alt="cute bear">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616555.png" class="bear-img" alt="pink bear">
+  </div>
+  <input type="text" id="nameInput" placeholder="Enter your name..." maxlength="20">
+  <button onclick="checkName()">Open Surprise! 🎁</button>
+  <div class="error" id="errorMsg">❌ Invalid! Try your real name! ❌</div>
 </div>
-<div class="input-container hand-drawn-box">
-<input type="text" id="nameInput" placeholder="Enter your name..." autocomplete="off">
-<button class="btn" onclick="checkName()">✨ Reveal Magic ✨</button>
-<div class="error-msg" id="errorMsg">⚠️ Oops! Try again! 🎂</div>
+
+<div class="section hidden" id="page2">
+  <div class="surprise">
+    <h2 style="font-size: 36px; margin-bottom: 20px; color: #FF6B9D;">🎉 Happy Birthday! 🎉</h2>
+    <p style="font-size: 20px; line-height: 1.8; color: #333;">
+      To the most amazing person who just turned 17! 🎂✨<br><br>
+      You're officially at that perfect age where you're old enough to know better, but young enough to do it anyway! May your year be filled with endless laughter, dreams coming true, and cake that has zero calories (we can dream, right?).<br><br>
+      <span style="color: #FF6B9D; font-weight: bold;">Never stop being your wonderful, weird, absolutely perfect self!</span> 💕
+    </p>
+  </div>
+  <div class="scroll-hint">👇 Scroll down for your cake! 👇</div>
 </div>
-</section>
-<section id="page2">
-<div class="surprise-box hand-drawn-box">
-<h2>🎉 Surprise! 🎉</h2>
-<div class="surprise-text" id="birthdayMessage">Happy Birthday! 🎂✨<br><br>Seventeen looks gorgeous on you! 💕<br>May this year bring endless joy! 🌟</div>
-<div class="scroll-hint hand-drawn-box" onclick="scrollToCake()">👇 Scroll for cake! 👇</div>
+
+<div class="section cake-section hidden" id="page3">
+  <h2 style="font-size: 32px; margin-bottom: 20px;">Make a wish! 🕯️</h2>
+  <div style="position: relative;">
+    <div class="candle"></div>
+    <div class="cake">
+      <div class="frosting">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <div class="joke-box">
+    <h3 style="margin-bottom: 15px; color: #2E7D32;">🎭 Birthday Joke Time!</h3>
+    <p><strong>Why did the birthday cake go to the doctor?</strong></p>
+    <p style="margin-top: 10px; font-size: 20px; color: #D32F2F; font-weight: bold;">Because it was feeling a little CRUMBY! 🍰😂</p>
+    <p style="margin-top: 15px; font-size: 14px; color: #666;">(But you're definitely not crummy, you're the icing on top!)</p>
+  </div>
 </div>
-</section>
-<section id="page3">
-<div class="cake-container" id="cakeContainer" onclick="blowCandle()">
-<div class="tap-text" id="tapText">👆 Tap to blow! 👆</div>
-<div class="wish-text" id="wishText">🌟 Make a wish! 🌟</div>
-<div class="cake">
-<div class="single-candle" id="candle"><div class="flame" id="flame"><div class="smoke" id="smoke"></div></div></div>
-<div class="layer-top cake-layer"><div class="frosting" style="left:20px"></div><div class="frosting" style="left:60px"></div><div class="frosting" style="left:100px"></div><div class="frosting" style="left:140px"></div></div>
-<div class="layer-middle cake-layer"></div>
-<div class="layer-bottom cake-layer"></div>
-<div class="plate"></div>
+
+<button class="music-btn" onclick="toggleMusic()" style="position:fixed;bottom:20px;right:20px;z-index:100;">🎵</button>
+
+<div class="music-player" id="musicPlayer">
+  <iframe src="https://open.spotify.com/embed/track/7JlbPArIeas7tUxRMDHWj5" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media" style="border-radius:10px;"></iframe>
+  <button onclick="toggleMusic()" style="position:absolute;top:-10px;right:-10px;background:#FF4444;color:#fff;border:2px solid #000;border-radius:50%;width:30px;height:30px;cursor:pointer;font-weight:bold;">×</button>
 </div>
-</div>
-<div class="joke-box hand-drawn-box">
-<h3>🎭 Birthday Joke! 🎭</h3>
-<div class="joke-text">Why did the cake go to the doctor?</div>
-<div class="punchline">Feeling a little CRUMMY! 🍞😂</div>
-</div>
-</section>
+
 <script>
-let candleBlown=false,musicPlaying=false;
-let audio=new Audio();
-function toggleMusic(){
-let btn=document.getElementById('musicBtn');
-if(!musicPlaying){
-window.open('https://open.spotify.com/track/7JlbPArIeas7tUxRMDHWj5','_blank');
-btn.textContent='🎵 Opened Spotify';
-btn.classList.add('playing');
-musicPlaying=true}}
-function checkName(){
-let input=document.getElementById('nameInput'),errorMsg=document.getElementById('errorMsg'),name=input.value.trim();
-if(name===''){errorMsg.style.display='block';input.style.borderColor='red';input.style.animation='shake .5s';setTimeout(()=>input.style.animation='',500)}
-else{errorMsg.style.display='none';showSurprise(name)}}
-function showSurprise(name){
-document.getElementById('page1').style.display='none';
-document.getElementById('page2').style.display='flex';
-document.getElementById('birthdayMessage').innerHTML=`🎉 Happy Birthday <span style="color:#FF6B9D;font-size:1.3em">${name}</span>! 🎉<br><br>Seventeen looks gorgeous on you! 💕<br>May this year bring endless joy! 🌟`;
-createConfetti();setInterval(createFloatingHeart,1000)}
-function createConfetti(){
-let colors=['#FF6B9D','#FFE66D','#A8E6FF','#FFD3E1','#C7CEEA'];
-for(let i=0;i<50;i++){setTimeout(()=>{
-let c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];c.style.animationDuration=(Math.random()*2+2)+'s';c.style.borderRadius=Math.random()>.5?'50%':'0';document.body.appendChild(c);setTimeout(()=>c.remove(),4000)},i*30)}}
-function createFloatingHeart(){
-let hearts=['💖','💕','💗','💝','💘','✨','🎂','🎈'],heart=document.createElement('div');heart.className='floating-hearts';heart.textContent=hearts[Math.floor(Math.random()*hearts.length)];heart.style.left=Math.random()*100+'vw';heart.style.animationDuration=(Math.random()*3+3)+'s';document.body.appendChild(heart);setTimeout(()=>heart.remove(),6000)}
-function scrollToCake(){document.getElementById('page3').scrollIntoView({behavior:'smooth'})}
-function blowCandle(){
-if(candleBlown)return;
-candleBlown=true;
-let flame=document.getElementById('flame'),smoke=document.getElementById('smoke'),tapText=document.getElementById('tapText'),wishText=document.getElementById('wishText'),cakeContainer=document.getElementById('cakeContainer');
-cakeContainer.classList.add('blowing');setTimeout(()=>cakeContainer.classList.remove('blowing'),300);
-flame.classList.add('out');smoke.classList.add('active');tapText.classList.add('hidden');setTimeout(()=>wishText.classList.add('show'),300);createConfetti()}
-document.getElementById('nameInput').addEventListener('keypress',function(e){if(e.key==='Enter')checkName()});
+function checkName() {
+  const name = document.getElementById('nameInput').value.trim();
+  const error = document.getElementById('errorMsg');
+  if (!name || name.length < 2) {
+    error.style.opacity = '1';
+    setTimeout(() => error.style.opacity = '0', 2000);
+  } else {
+    document.getElementById('page1').classList.add('hidden');
+    document.getElementById('page2').classList.remove('hidden');
+    document.getElementById('page3').classList.remove('hidden');
+    setTimeout(() => window.scrollTo({top: document.getElementById('page2').offsetTop, behavior: 'smooth'}), 100);
+  }
+}
+function toggleMusic() {
+  const player = document.getElementById('musicPlayer');
+  player.style.display = player.style.display === 'block' ? 'none' : 'block';
+}
+document.getElementById('nameInput').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') checkName();
+});
 </script>
+
 </body>
 </html>
-
