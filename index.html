@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday!</title>
+<title>Zootopia Birthday!</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { 
   font-family: 'Comic Sans MS', cursive, sans-serif; 
-  background: #B8E6F0; 
+  background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -19,14 +19,13 @@ body {
   padding: 30px 50px;
   display: inline-block;
   box-shadow: 6px 6px 0 #000;
-  position: relative;
   animation: float 3s ease-in-out infinite;
 }
 @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
 .arrow {
   width: 200px;
   height: 40px;
-  background: #FFE66D;
+  background: #FF6B35;
   border: 4px solid #000;
   position: relative;
   margin: 30px auto;
@@ -38,18 +37,19 @@ body {
   right: -30px;
   top: -15px;
   border: 25px solid transparent;
-  border-left: 40px solid #FFE66D;
+  border-left: 40px solid #FF6B35;
   filter: drop-shadow(4px 0 0 #000);
 }
-.bear-img {
-  width: 150px;
-  height: 150px;
+.zoo-char {
+  width: 160px;
+  height: 160px;
   object-fit: contain;
   margin: 10px;
-  animation: wiggle 2s ease-in-out infinite;
+  animation: bounce 1s infinite alternate;
   filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.2));
 }
-@keyframes wiggle { 0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)} }
+.zoo-char:nth-child(2) { animation-delay: 0.5s; }
+@keyframes bounce { 0%{transform:translateY(0)}100%{transform:translateY(-15px)} }
 .section {
   min-height: 100vh;
   display: flex;
@@ -73,23 +73,24 @@ input {
 button {
   padding: 15px 40px;
   font-size: 20px;
-  background: #FFE66D;
+  background: #FF6B35;
   border: 4px solid #000;
   border-radius: 30px;
   cursor: pointer;
   box-shadow: 4px 4px 0 #000;
   font-family: inherit;
   font-weight: bold;
+  color: #fff;
   transition: all 0.2s;
 }
-button:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
-button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+button:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; background: #FF8C42; }
 .error {
   color: #FF4444;
   font-weight: bold;
   margin-top: 10px;
   opacity: 0;
   transition: opacity 0.3s;
+  text-shadow: 2px 2px 0 #fff;
 }
 .hidden { display: none; }
 .surprise {
@@ -97,98 +98,165 @@ button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
   border: 4px solid #000;
   border-radius: 30px;
   padding: 40px;
-  max-width: 600px;
+  max-width: 650px;
   box-shadow: 8px 8px 0 #000;
   animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 @keyframes popIn { 0%{transform:scale(0)rotate(-10deg)}100%{transform:scale(1)rotate(0)} }
 .scroll-hint {
   margin-top: 30px;
-  animation: bounce 1s infinite;
+  animation: pulse 1s infinite;
   font-size: 24px;
+  color: #2E7D32;
+  font-weight: bold;
+  text-shadow: 2px 2px 0 #fff;
 }
-@keyframes bounce { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
-.cake-section { background: #FFF5F5; }
-.cake {
-  width: 300px;
-  height: 200px;
-  background: #F4C2C2;
-  border: 4px solid #000;
-  border-radius: 20px 20px 10px 10px;
+@keyframes pulse { 0%,100%{transform:scale(1)}50%{transform:scale(1.1)} }
+.gift-section { background: linear-gradient(135deg, #FFE66D 0%, #FF6B9D 100%); }
+.gift-container {
   position: relative;
-  margin-top: 80px;
-  box-shadow: 6px 6px 0 #000;
+  width: 250px;
+  height: 250px;
+  margin: 40px auto;
+  cursor: pointer;
 }
-.cake::before {
+.gift-box {
+  width: 100%;
+  height: 100%;
+  background: #FF6B35;
+  border: 5px solid #000;
+  border-radius: 0 0 20px 20px;
+  position: absolute;
+  bottom: 0;
+  box-shadow: 8px 8px 0 #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  z-index: 2;
+  transition: all 0.5s;
+}
+.gift-lid {
+  width: 110%;
+  height: 60px;
+  background: #FF6B35;
+  border: 5px solid #000;
+  border-radius: 20px;
+  position: absolute;
+  top: -10px;
+  left: -5%;
+  box-shadow: 6px 6px 0 #000;
+  z-index: 3;
+  transition: all 0.5s;
+  transform-origin: left center;
+}
+.gift-lid::before {
   content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 100%;
+  background: #FFD700;
+  border-left: 3px solid #000;
+  border-right: 3px solid #000;
+}
+.gift-bow {
   position: absolute;
   top: -40px;
-  left: 20px;
-  right: 20px;
-  height: 40px;
-  background: #FFF;
-  border: 4px solid #000;
-  border-radius: 10px;
-}
-.frosting {
-  position: absolute;
-  top: -20px;
-  left: 0;
-  right: 0;
-  height: 30px;
-}
-.frosting span {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  background: #FFF;
-  border: 3px solid #000;
-  border-radius: 50%;
-  margin: 0 -5px;
-  position: relative;
-  top: -20px;
-}
-.candle {
-  position: absolute;
-  top: -70px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
-  height: 60px;
-  background: linear-gradient(to bottom, #FFE66D 50%, #FF6B6B 50%);
-  border: 3px solid #000;
-  border-radius: 5px;
-  animation: flicker 0.5s ease-in-out infinite alternate;
+  font-size: 60px;
+  z-index: 4;
+  transition: all 0.5s;
+  filter: drop-shadow(3px 3px 0 #000);
 }
-.candle::after {
+.gift-box::before {
   content: '';
   position: absolute;
-  top: -25px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 16px;
-  height: 25px;
-  background: radial-gradient(ellipse at center, #FFE66D 0%, #FF9500 70%, transparent 100%);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  animation: flame 0.5s ease-in-out infinite alternate;
-  box-shadow: 0 0 20px #FF9500, 0 0 40px #FFE66D;
+  width: 40px;
+  height: 100%;
+  background: #FFD700;
+  border-left: 3px solid #000;
+  border-right: 3px solid #000;
 }
-@keyframes flicker { 0%{transform:translateX(-50%)scaleY(1)}100%{transform:translateX(-50%)scaleY(1.05)} }
-@keyframes flame { 0%{transform:translateX(-50%)scale(1)}100%{transform:translateX(-50%)scale(1.2)} }
+.gift-box::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 40px;
+  background: #FFD700;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+}
+.gift-container.open .gift-lid {
+  transform: rotate(-110deg) translateY(-20px);
+  opacity: 0;
+}
+.gift-container.open .gift-bow {
+  transform: translateX(-50%) translateY(-100px) rotate(20deg);
+  opacity: 0;
+}
+.gift-container.open .gift-box {
+  transform: scale(0.9);
+}
+.gift-surprise {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 100px;
+  z-index: 1;
+  transition: all 0.5s 0.3s;
+}
+.gift-container.open .gift-surprise {
+  transform: translate(-50%, -150%) scale(1.5);
+  animation: floatUp 2s ease-in-out infinite;
+}
+@keyframes floatUp { 0%,100%{transform:translate(-50%,-150%)scale(1.5)}50%{transform:translate(-50%,-170%)scale(1.5)} }
+.paw-print {
+  position: absolute;
+  font-size: 40px;
+  animation: fade 3s infinite;
+}
+@keyframes fade { 0%,100%{opacity:0.3}50%{opacity:1} }
 .joke-box {
-  background: #E8F5E9;
+  background: #E3F2FD;
   border: 4px solid #000;
   border-radius: 20px;
   padding: 30px;
   margin-top: 40px;
-  max-width: 500px;
+  max-width: 550px;
   box-shadow: 6px 6px 0 #000;
   font-size: 18px;
-  line-height: 1.6;
 }
-.music-player {
+.music-btn {
   position: fixed;
   bottom: 20px;
+  right: 20px;
+  background: #9C27B0;
+  color: #fff;
+  border: 3px solid #000;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+  z-index: 100;
+  transition: all 0.2s;
+}
+.music-btn:hover { transform: scale(1.1); background: #BA68C8; }
+.music-player {
+  position: fixed;
+  bottom: 90px;
   right: 20px;
   z-index: 100;
   background: #fff;
@@ -198,69 +266,96 @@ button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
   box-shadow: 4px 4px 0 #000;
   display: none;
 }
-.music-btn {
-  background: #1DB954;
-  color: #fff;
+.zootopia-ref {
+  background: #C8E6C9;
+  border: 3px solid #000;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 15px 0;
+  font-size: 16px;
+  box-shadow: 3px 3px 0 #000;
+}
+.badge {
+  display: inline-block;
+  background: #FFD700;
   border: 3px solid #000;
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  font-size: 24px;
-  cursor: pointer;
+  line-height: 54px;
+  font-size: 30px;
+  margin: 10px;
   box-shadow: 3px 3px 0 #000;
-  transition: all 0.2s;
+  animation: spin 4s linear infinite;
 }
-.music-btn:hover { transform: scale(1.1); }
-.music-btn:active { transform: scale(0.95); }
+@keyframes spin { 100%{transform:rotate(360deg)} }
+.open-text {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #6A1B9A;
+  font-weight: bold;
+  animation: blink 1s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0.5} }
 </style>
 </head>
 <body>
 
 <div class="section" id="page1">
   <div class="cloud">
-    <h1 style="font-size: 42px; color: #000;">Your new<br>nickname!</h1>
+    <h1 style="font-size: 38px; color: #000;">Zootopia<br>Birthday Squad!</h1>
   </div>
   <div class="arrow"></div>
   <div>
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="bear-img" alt="cute bear">
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616555.png" class="bear-img" alt="pink bear">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="zoo-char" alt="Judy" id="judyImg">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616555.png" class="zoo-char" alt="Nick" id="nickImg">
   </div>
-  <input type="text" id="nameInput" placeholder="Enter your name..." maxlength="20">
-  <button onclick="checkName()">Open Surprise! 🎁</button>
-  <div class="error" id="errorMsg">❌ Invalid! Try your real name! ❌</div>
+  <input type="text" id="nameInput" placeholder="Enter your name, rookie..." maxlength="20">
+  <button onclick="checkName()">🥕 Unlock Case File! 🔍</button>
+  <div class="error" id="errorMsg">❌ Invalid! Even Clawhauser could do better! ❌</div>
 </div>
 
 <div class="section hidden" id="page2">
   <div class="surprise">
-    <h2 style="font-size: 36px; margin-bottom: 20px; color: #FF6B9D;">🎉 Happy Birthday! 🎉</h2>
-    <p style="font-size: 20px; line-height: 1.8; color: #333;">
-      To the most amazing person who just turned 17! 🎂✨<br><br>
-      You're officially at that perfect age where you're old enough to know better, but young enough to do it anyway! May your year be filled with endless laughter, dreams coming true, and cake that has zero calories (we can dream, right?).<br><br>
-      <span style="color: #FF6B9D; font-weight: bold;">Never stop being your wonderful, weird, absolutely perfect self!</span> 💕
+    <div class="badge">🥕</div>
+    <h2 style="font-size: 32px; margin-bottom: 15px; color: #2E7D32;">🐰 Happy Birthday, Officer! 🦊</h2>
+    <p style="font-size: 18px; line-height: 1.7; color: #333;">
+      <strong>Case File #17:</strong> Subject is officially one year older and infinitely more awesome! 🎉<br><br>
+      Like Judy Hopps, you prove that anyone can be anything – including the most legendary 17-year-old in Zootopia! And like Nick Wilde, you've got that sly charm that makes everyone want to be your partner in crime (solving).<br><br>
+      <span style="color: #FF6B35; font-weight: bold;">"Life's a little bit messy. We all make mistakes. No matter what type of animal you are, change starts with you!"</span><br><br>
+      May your year be filled with <strong>doughnuts</strong> (zero calories, obviously), <strong>popsicles</strong> from Nick's hustle, and <strong>night howler-free</strong> celebrations! 
     </p>
+    <div class="zootopia-ref">🎬 <em>From Zootopia 1 & 2 – Where anyone can be anything!</em></div>
   </div>
-  <div class="scroll-hint">👇 Scroll down for your cake! 👇</div>
+  <div class="scroll-hint">👇 Scroll for your special delivery! 👇</div>
 </div>
 
-<div class="section cake-section hidden" id="page3">
-  <h2 style="font-size: 32px; margin-bottom: 20px;">Make a wish! 🕯️</h2>
-  <div style="position: relative;">
-    <div class="candle"></div>
-    <div class="cake">
-      <div class="frosting">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-      </div>
-    </div>
+<div class="section gift-section hidden" id="page3">
+  <h2 style="font-size: 28px; margin-bottom: 10px; color: #000;">🎁 Special Delivery from ZPD! 🚔</h2>
+  
+  <div class="gift-container" id="giftBox" onclick="openGift()">
+    <div class="gift-bow">🎀</div>
+    <div class="gift-lid"></div>
+    <div class="gift-box">📦</div>
+    <div class="gift-surprise">🦊🐰🥕</div>
   </div>
-  <div class="joke-box">
-    <h3 style="margin-bottom: 15px; color: #2E7D32;">🎭 Birthday Joke Time!</h3>
-    <p><strong>Why did the birthday cake go to the doctor?</strong></p>
-    <p style="margin-top: 10px; font-size: 20px; color: #D32F2F; font-weight: bold;">Because it was feeling a little CRUMBY! 🍰😂</p>
-    <p style="margin-top: 15px; font-size: 14px; color: #666;">(But you're definitely not crummy, you're the icing on top!)</p>
+  
+  <div class="open-text" id="openText">👆 Click to open! 👆</div>
+  
+  <div class="joke-box" id="jokeBox" style="display:none;">
+    <h3 style="margin-bottom: 15px; color: #6A1B9A;">🎭 Zootopia Joke Time!</h3>
+    <p><strong>Why did Nick Wilde bring a carrot to the birthday party?</strong></p>
+    <p style="margin-top: 10px; font-size: 20px; color: #D32F2F; font-weight: bold;">Because he heard it was going to be a "hare"-raising celebration! 🐰😂</p>
+    <p style="margin-top: 15px; font-size: 14px; color: #666;">(Don't worry, Judy approved this message!)</p>
+  </div>
+  
+  <div style="margin-top: 30px; font-size: 16px; color: #333;" id="footerText" style="display:none;">
+    <p>🦊 <em>"Sly fox. Dumb bunny." – Best friendship ever!</em> 🐰</p>
+    <p style="margin-top: 10px;">🎬 <strong>Zootopia 2</strong> coming soon to make your next birthday even wilder!</p>
   </div>
 </div>
 
-<button class="music-btn" onclick="toggleMusic()" style="position:fixed;bottom:20px;right:20px;z-index:100;">🎵</button>
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
 
 <div class="music-player" id="musicPlayer">
   <iframe src="https://open.spotify.com/embed/track/7JlbPArIeas7tUxRMDHWj5" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media" style="border-radius:10px;"></iframe>
@@ -268,6 +363,23 @@ button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
 </div>
 
 <script>
+const judyImgs = [
+  'https://cdn-icons-png.flaticon.com/512/616/616430.png',
+  'https://cdn-icons-png.flaticon.com/512/188/188987.png',
+  'https://cdn-icons-png.flaticon.com/512/188/188988.png'
+];
+const nickImgs = [
+  'https://cdn-icons-png.flaticon.com/512/616/616555.png',
+  'https://cdn-icons-png.flaticon.com/512/188/188999.png',
+  'https://cdn-icons-png.flaticon.com/512/189/189000.png'
+];
+let imgIdx = 0;
+setInterval(() => {
+  imgIdx = (imgIdx + 1) % 3;
+  document.getElementById('judyImg').src = judyImgs[imgIdx];
+  document.getElementById('nickImg').src = nickImgs[imgIdx];
+}, 3000);
+
 function checkName() {
   const name = document.getElementById('nameInput').value.trim();
   const error = document.getElementById('errorMsg');
@@ -281,10 +393,29 @@ function checkName() {
     setTimeout(() => window.scrollTo({top: document.getElementById('page2').offsetTop, behavior: 'smooth'}), 100);
   }
 }
+
+function openGift() {
+  const gift = document.getElementById('giftBox');
+  const text = document.getElementById('openText');
+  const joke = document.getElementById('jokeBox');
+  const footer = document.getElementById('footerText');
+  
+  if (!gift.classList.contains('open')) {
+    gift.classList.add('open');
+    text.style.display = 'none';
+    setTimeout(() => {
+      joke.style.display = 'block';
+      joke.style.animation = 'popIn 0.5s';
+      footer.style.display = 'block';
+    }, 800);
+  }
+}
+
 function toggleMusic() {
   const player = document.getElementById('musicPlayer');
   player.style.display = player.style.display === 'block' ? 'none' : 'block';
 }
+
 document.getElementById('nameInput').addEventListener('keypress', (e) => {
   if (e.key === 'Enter') checkName();
 });
